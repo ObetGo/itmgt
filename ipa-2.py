@@ -39,11 +39,11 @@ def shift_letter(letter, shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     alphabet =  ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R", "S","T","U","V",'W',"X","Y","Z"]
     if letter == " ":
-       print(" ")
+        return " "
     elif (alphabet.index(letter) + shift) >= len(alphabet):
         return alphabet[(alphabet.index(letter) + shift) - len(alphabet)]
     else:
-       return alphabet[alphabet.index(letter) + shift]
+        return alphabet[alphabet.index(letter) + shift]
 
 def caesar_cipher(message, shift):
     '''Caesar Cipher.
@@ -75,7 +75,7 @@ def caesar_cipher(message, shift):
         else:
            caesar_ciphered_letter = str(alphabet[alphabet.index(letter) + shift])
         caesar_ciphered_message = caesar_ciphered_message + caesar_ciphered_letter
-    print(caesar_ciphered_message)
+    return caesar_ciphered_message
             
 
 def shift_by_letter(letter, letter_shift):
@@ -108,11 +108,11 @@ def shift_by_letter(letter, letter_shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R", "S","T","U","V",'W',"X","Y","Z"]
     if letter == " ":
-       print(" ")
+        return " "
     elif (alphabet.index(letter) + alphabet.index(letter_shift)) >= len(alphabet):
         return alphabet[(alphabet.index(letter) + alphabet.index(letter_shift)) - len(alphabet)]
     else:
-       return alphabet[alphabet.index(letter) + alphabet.index(letter_shift)]
+        return alphabet[alphabet.index(letter) + alphabet.index(letter_shift)]
 
 def vigenere_cipher(message, key):
     '''Vigenere Cipher.
@@ -162,7 +162,7 @@ def vigenere_cipher(message, key):
         else:
            vigenere_ciphered_letter = alphabet[alphabet.index(letter) + alphabet.index(extended_key[i])]
         vigenere_ciphered_message = vigenere_ciphered_message + vigenere_ciphered_letter
-    print(vigenere_ciphered_message)
+    return vigenere_ciphered_message
 
 def scytale_cipher(message, shift):
     '''Scytale Cipher.
@@ -227,7 +227,7 @@ def scytale_cipher(message, shift):
         else:
             pass
         encoded_scytale_cipher = encoded_scytale_cipher + encoded_scytale_cipher_letter
-    print(encoded_scytale_cipher)
+    return encoded_scytale_cipher
 
 def scytale_decipher(message, shift):
     '''Scytale De-cipher.
