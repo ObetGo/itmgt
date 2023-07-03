@@ -37,13 +37,14 @@ def shift_letter(letter, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    alphabet =  ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R", "S","T","U","V",'W',"X","Y","Z"]
+    alphabet =  ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",'W',"X","Y","Z"]
     if letter == " ":
         return " "
-    elif (alphabet.index(letter) + shift) >= len(alphabet):
-        return alphabet[(alphabet.index(letter) + shift) - len(alphabet)]
+    elif (alphabet.index(letter) + (shift % len(alphabet))) >= len(alphabet):
+        return alphabet[(alphabet.index(letter) + (shift % len(alphabet))) - len(alphabet)]
     else:
-        return alphabet[alphabet.index(letter) + shift]
+        return alphabet[alphabet.index(letter) + (shift % len(alphabet))]
+
 
 def caesar_cipher(message, shift):
     '''Caesar Cipher.
@@ -65,17 +66,11 @@ def caesar_cipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R", "S","T","U","V",'W',"X","Y","Z"]
-    caesar_ciphered_message = ""
+    alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",'W',"X","Y","Z"]
+    caesar_ciphered_message = ''
     for letter in message: 
-        if letter == " ":
-            caesar_ciphered_letter = " " 
-        elif (alphabet.index(letter) + shift) >= len(alphabet):
-            caesar_ciphered_letter = str(alphabet[(alphabet.index(letter) + shift) - len(alphabet)])
-        else:
-           caesar_ciphered_letter = str(alphabet[alphabet.index(letter) + shift])
-        caesar_ciphered_message = caesar_ciphered_message + caesar_ciphered_letter
-    return caesar_ciphered_message
+        caesar_ciphered_message += shift_letter(letter,shift)
+    return caesar_ciphered_message 
             
 
 def shift_by_letter(letter, letter_shift):
@@ -106,14 +101,14 @@ def shift_by_letter(letter, letter_shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R", "S","T","U","V",'W',"X","Y","Z"]
+    alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",'W',"X","Y","Z"]
     if letter == " ":
         return " "
     elif (alphabet.index(letter) + alphabet.index(letter_shift)) >= len(alphabet):
         return alphabet[(alphabet.index(letter) + alphabet.index(letter_shift)) - len(alphabet)]
     else:
         return alphabet[alphabet.index(letter) + alphabet.index(letter_shift)]
-
+        
 def vigenere_cipher(message, key):
     '''Vigenere Cipher.
     15 points.
@@ -145,23 +140,17 @@ def vigenere_cipher(message, key):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R", "S","T","U","V",'W',"X","Y","Z"]
+    alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",'W',"X","Y","Z"]
     vigenere_ciphered_message = ""
     if len(message) > len(key):
         if len(message) % len(key) == 0:
             extended_key = (key * (len(message) / len(key)))
         else:
-            extended_key = (key * int(len(message) / len(key))) + key[0:(len(message) % len(key))]
+            extended_key = (key * int(len(message) / len(key))) + key[:(len(message) % len(key))]
     else:
         extended_key = key
     for i, letter in enumerate(message): 
-        if letter == " ":
-            vigenere_ciphered_letter = " "
-        elif (alphabet.index(letter) + alphabet.index(extended_key[i])) >= len(alphabet):
-            vigenere_ciphered_letter = alphabet[(alphabet.index(letter) + alphabet.index(extended_key[i])) - len(alphabet)]
-        else:
-           vigenere_ciphered_letter = alphabet[alphabet.index(letter) + alphabet.index(extended_key[i])]
-        vigenere_ciphered_message = vigenere_ciphered_message + vigenere_ciphered_letter
+        vigenere_ciphered_message += shift_by_letter(letter,extended_key[i])
     return vigenere_ciphered_message
 
 def scytale_cipher(message, shift):
@@ -221,12 +210,9 @@ def scytale_cipher(message, shift):
         new_message = message + ("_" * (shift - (len(message) % shift)))
     else:
         new_message = message
-    for i, letter in enumerate(new_message):
-        if letter in new_message:
-            encoded_scytale_cipher_letter = new_message[(i // shift) + (len(message) // shift) * (i % shift)]
-        else:
-            pass
-        encoded_scytale_cipher = encoded_scytale_cipher + encoded_scytale_cipher_letter
+    for i in range(len(new_message)):
+        encoded_scytale_cipher_letter = new_message[(i // shift) + (len(new_message) // shift) * (i % shift)]
+        encoded_scytale_cipher += encoded_scytale_cipher_letter
     return encoded_scytale_cipher
 
 def scytale_decipher(message, shift):
