@@ -144,9 +144,9 @@ def vigenere_cipher(message, key):
     vigenere_ciphered_message = ""
     if len(message) > len(key):
         if len(message) % len(key) == 0:
-            extended_key = (key * (len(message) / len(key)))
+            extended_key = (key * (len(message) // len(key)))
         else:
-            extended_key = (key * int(len(message) / len(key))) + key[:(len(message) % len(key))]
+            extended_key = (key * (len(message) // len(key))) + key[:(len(message) % len(key))]
     else:
         extended_key = key
     for i, letter in enumerate(message): 
